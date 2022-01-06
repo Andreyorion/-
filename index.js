@@ -1,7 +1,6 @@
 const { Telegraf, Markup } = require('telegraf')
 const my_const = require(`./const`)
 const { Keyboard } = require('telegram-keyboard')
-const inlineMessageRatingKeyboard = [[ { text: '', callback_data: 'like' }, { text: '', callback_data: 'dislike' } ]];
 
 const bot = new Telegraf("5047037721:AAGHUH4lNHCoKdozlIBECZKrA0BcIn7KtOA")
 bot.start((ctx) => ctx.reply(`Здравствуйте ${ctx.from.first_name}, для получения большей информации воспользуйтесь командой /help`))
