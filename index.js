@@ -21,7 +21,49 @@ bot.command('sofa', (ctx) => ctx.replyWithPhoto({ source: '11.jpg' }, { caption:
 bot.hears(`on`, (ctx) => ctx.replyWithPhoto ({source: "1.jpg"}))
 
 bot.hears('Главное меню', (ctx) => ctx.reply(`Выберите интерисующий вас продукт: \n\n\n /dish посуда\n\n/eat еда\n\n/furniture мебель\n\n /developer Создатель бота\n\n/version Версия бота`))
+bot.command('developer', async (ctx) => {try {
+    await ctx.reply ((`Создатель бота @June09s `), Markup.inlineKeyboard(
+        [[
+            Markup.button.callback (`Главное меню`, `btn_1`)
+        ]]
+    ))
+} catch(e){
+    console.error(e)
+}})
 
+
+bot.command('version', async (ctx) => {try {
+    await ctx.reply (`Версия бота 0.1.0`, Markup.inlineKeyboard(
+        [[
+            Markup.button.callback (`Главное меню`, `btn_1`)
+        ]]
+    ))
+} catch(e){
+    console.error(e)
+}})
+
+function addActionBot(id_btn, src_img, text, preview) {
+    bot.action(id_btn, async (ctx) => {
+        try { await ctx.answerCbQuery()
+            if (src_img !== false) {
+                await ctx.replyWithPhoto({
+                    source: src_img})
+            } await ctx.replyWithHTML (text, {disable_web_page_preview: preview})
+        } catch(e) {console.error(e)}
+    })
+}
+
+addActionBot(`btn_1`, false, my_const.text1, false)
+addActionBot(`btn_2`, false , my_const.text1, false)
+
+bot.hears('/help', async (ctx) => {
+        const keyboard = Keyboard.make([
+      [`Главное меню`], // First row 
+    ])
+  
+    await ctx.reply('Выберите интерисующий вас продукт: \n\n\n /dish посуда\n\n/eat еда\n\n/furniture мебель\n\n /developer Создатель бота\n\n/version Версия бота`', keyboard.reply())
+    
+  })
 bot.on('sticker', (ctx) => ctx.replyWithPhoto ({ url: 'https://picsum.photos/400/500/?random' }))
 bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 bot.on('message',(ctx) => ctx.reply('Команда не найдена\n\nвоспользуйтесь командой /help чтобы узнать о существующих командах'))
